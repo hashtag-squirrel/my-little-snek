@@ -5,8 +5,9 @@
 - start game (new/load existing)
 - display game
     - display Snek
+        - Snek name
         - Snek age
-        - Happiness
+        - Sadness
         - Hunger
         - Poop
     - display Input options
@@ -17,6 +18,7 @@
     - feed 
     - pet
     - clean
+    - die on specified conditions
 - autosave with every tick
 
 
