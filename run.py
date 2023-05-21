@@ -1,6 +1,7 @@
 import time
 import threading
 import os
+import sys
 from colorama import Fore, Back, Style
 
 
@@ -86,6 +87,7 @@ class Pet:
             or (self.poop == 5 and self.sadness == 5)
                 or (self.hunger == 5 and self.sadness == 5)):
             self.dead = True
+            print('Bob is dead')
             return self.dead
 
 
@@ -104,15 +106,63 @@ def display_welcome_screen():
     return choice
 
 
-def display_game(pet):
+def display_pet(pet):
+    """Displays the game"""
+    time.sleep(1)
+    clear()
     print(pet)
 
 
+def display_input(pet):
+    choice = input(f'''Do you want to
+{Fore.LIGHTGREEN_EX}F{Fore.RESET}eed,
+{Fore.LIGHTGREEN_EX}C{Fore.RESET}lean,
+{Fore.LIGHTGREEN_EX}P{Fore.RESET}et or
+{Fore.LIGHTGREEN_EX}Q{Fore.RESET}uit the game?\n''').lower()
+    if choice == 'f':
+        Pet.feed(pet)
+    elif choice == 'c':
+        Pet.clean(pet)
+    elif choice == 'p':
+        Pet.pet(pet)
+    elif choice == 'q':
+        print('Quitting game. Progress is saved. See you next time!')
+    else:
+        print('invalid input')
+
+
 def start_new_game():
+    """Starts a new game"""
     print('Starting new game...')
     name = input('Name your pet:\n').capitalize()
     my_pet = Pet(name)
+    thread2 = threading.Thread(target=tick_time, args=(my_pet,))
+    thread2.start()
     return my_pet
+
+
+def tick_time(pet):
+    """Function that 'ticks' at certain intervals,
+    runs in parallel to main thread
+    Calls several Pet methods:
+    evaluate_properties()
+    evaluate_lod()
+    pet.die()
+    
+
+
+    Calls game methods:
+    save_game()
+    """
+    while True:
+        for character in '...\n':
+            sys.stdout.write(character)
+            sys.stdout.flush()
+            time.sleep(1)
+        pet.evaluate_properties()
+        if pet.evaluate_lod():
+            break
+        display_pet(pet)
 
 
 def main():
@@ -120,7 +170,7 @@ def main():
     game_choice = display_welcome_screen()
     if game_choice == 'n':
         my_pet = start_new_game()
-        display_game(my_pet)
+        display_pet(my_pet)
     else:
         game_choice = display_welcome_screen()
 
@@ -131,7 +181,5 @@ def main():
 #     time.sleep(60)
 
 thread1 = threading.Thread(target=main)
-# thread2 = threading.Thread(target=get_input)
 
 thread1.start()
-# thread2.start()
