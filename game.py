@@ -87,10 +87,10 @@ class Game:
     def load_game(self):
         """Method to initialize new game with existing data"""
         print('Starting new game...')
-        self.my_pet = Pet(name)
-        tick_thread = threading.Thread(target=self._tick_time,
-                                       args=(self.my_pet,))
-        tick_thread.start()
-        input_thread = threading.Thread(target=self._get_input,
-                                        args=(self.my_pet,))
-        input_thread.start()
+        # self.my_pet = Pet(name)
+        # tick_thread = threading.Thread(target=self._tick_time,
+        #                                args=(self.my_pet,))
+        # tick_thread.start()
+        # input_thread = threading.Thread(target=self._get_input,
+        #                                 args=(self.my_pet,))
+        # input_thread.start()
