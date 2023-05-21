@@ -106,19 +106,20 @@ def display_welcome_screen():
     return choice
 
 
-def display_pet(pet):
+def display_game(pet):
     """Displays the game"""
     time.sleep(1)
     clear()
     print(pet)
-
-
-def display_input(pet):
-    choice = input(f'''Do you want to
+    print(f'''Do you want to
 {Fore.LIGHTGREEN_EX}F{Fore.RESET}eed,
 {Fore.LIGHTGREEN_EX}C{Fore.RESET}lean,
 {Fore.LIGHTGREEN_EX}P{Fore.RESET}et or
-{Fore.LIGHTGREEN_EX}Q{Fore.RESET}uit the game?\n''').lower()
+{Fore.LIGHTGREEN_EX}Q{Fore.RESET}uit the game?\n''')
+
+
+def get_input(pet):
+    choice = input().lower()
     if choice == 'f':
         Pet.feed(pet)
     elif choice == 'c':
@@ -136,20 +137,19 @@ def start_new_game():
     print('Starting new game...')
     name = input('Name your pet:\n').capitalize()
     my_pet = Pet(name)
-    thread2 = threading.Thread(target=tick_time, args=(my_pet,))
-    thread2.start()
+    tick_thread = threading.Thread(target=tick_time, args=(my_pet,))
+    tick_thread.start()
+    input_thread = threading.Thread(target=get_input, args=(my_pet,))
+    input_thread.start()
     return my_pet
 
 
 def tick_time(pet):
     """Function that 'ticks' at certain intervals,
     runs in parallel to main thread
-    Calls several Pet methods:
+    Calls Pet methods:
     evaluate_properties()
     evaluate_lod()
-    pet.die()
-    
-
 
     Calls game methods:
     save_game()
@@ -162,7 +162,7 @@ def tick_time(pet):
         pet.evaluate_properties()
         if pet.evaluate_lod():
             break
-        display_pet(pet)
+        display_game(pet)
 
 
 def main():
@@ -170,7 +170,7 @@ def main():
     game_choice = display_welcome_screen()
     if game_choice == 'n':
         my_pet = start_new_game()
-        display_pet(my_pet)
+        display_game(my_pet)
     else:
         game_choice = display_welcome_screen()
 
@@ -180,6 +180,4 @@ def main():
 #     print(f'Your name: {name}')
 #     time.sleep(60)
 
-thread1 = threading.Thread(target=main)
-
-thread1.start()
+main()
