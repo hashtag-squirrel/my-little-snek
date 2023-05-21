@@ -1,5 +1,7 @@
 import time
 import threading
+import os
+from colorama import Fore, Back, Style
 
 class Pet:
     """
@@ -85,21 +87,30 @@ class Pet:
 
 
 
+def clear():
+    """Clears the terminal window"""
+    os.system('clear')
 
+def display_welcome_screen():
+    """Displays the welcome screen to the player"""
+    clear()
+    print('Welcome to My Little Snek\n')
+    input('Do you want to start a New game or Continue an existing game?\n')
 
-def get_input():
-    name = print(input('Input your name\n'))
-    print(f'Your name: {name}')
+# def get_input():
+#     name = input('Input your name\n')
+#     print(f'Your name: {name}')
 
 def main():
-    print('Welcome to My Little Snek')
-    t = time.time()
-    print(time.ctime())
-    time.sleep(5)
-    print(f'It is now {time.ctime()}. {round(time.time()-t)} seconds have passed.')
+    """Main function for the game"""
+    display_welcome_screen()
+    
+
+    # time.sleep(60)
+
 
 thread1 = threading.Thread(target=main)
-thread2 = threading.Thread(target=get_input)
+# thread2 = threading.Thread(target=get_input)
 
 thread1.start()
-thread2.start()
+# thread2.start()
