@@ -100,19 +100,35 @@ def display_welcome_screen():
     print('Welcome to My Little Snek\n')
     choice = input(f'''Do you want to start a
 {Fore.LIGHTGREEN_EX}N{Fore.RESET}EW GAME or
-{Fore.LIGHTGREEN_EX}C{Fore.RESET}ONTINUE an existing game?\n''')
+{Fore.LIGHTGREEN_EX}C{Fore.RESET}ONTINUE an existing game?\n''').lower()
     return choice
 
-# def get_input():
-#     name = input('Input your name\n')
-#     print(f'Your name: {name}')
+
+def display_game(pet):
+    print(pet)
+
+
+def start_new_game():
+    print('Starting new game...')
+    name = input('Name your pet:')
+    my_pet = Pet(name)
+    return my_pet
 
 
 def main():
     """Main function for the game"""
-    display_welcome_screen()
-    # time.sleep(60)
+    game_choice = display_welcome_screen()
+    if game_choice == 'n':
+        my_pet = start_new_game()
+        display_game(my_pet)
+    else:
+        game_choice = display_welcome_screen()
 
+
+# def get_input():
+#     name = input('Input your name\n')
+#     print(f'Your name: {name}')
+#     time.sleep(60)
 
 thread1 = threading.Thread(target=main)
 # thread2 = threading.Thread(target=get_input)
