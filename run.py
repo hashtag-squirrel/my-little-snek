@@ -4,17 +4,13 @@ import os
 import sys
 import random
 from pet import Pet
+from game import Game
 from colorama import Fore, Back, Style
-
-
-def clear():
-    """Clears the terminal window"""
-    os.system('clear')
 
 
 def display_welcome_screen():
     """Displays the welcome screen to the player"""
-    clear()
+    # Game.clear()
     print('Welcome to My Little Snek\n')
     choice = input(f'''Do you want to start a
 {Fore.LIGHTGREEN_EX}N{Fore.RESET}EW GAME or
@@ -25,7 +21,7 @@ def display_welcome_screen():
 def display_game(pet):
     """Displays the game"""
     time.sleep(1)
-    clear()
+    Game.clear()
     print(pet)
     print(f'''Do you want to
 {Fore.LIGHTGREEN_EX}F{Fore.RESET}eed,
