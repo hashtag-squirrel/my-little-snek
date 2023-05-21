@@ -26,7 +26,7 @@ class Game:
 {Fore.LIGHTGREEN_EX}P{Fore.RESET}et or
 {Fore.LIGHTGREEN_EX}Q{Fore.RESET}uit the game?\n''')
 
-    def tick_time(self, pet):
+    def _tick_time(self, pet):
         """Function that 'ticks' at certain intervals,
         runs in parallel to main thread
         Calls Pet methods:
@@ -37,18 +37,14 @@ class Game:
         save_game()
         """
         while True:
-            # for character in '...\n':
-            #     sys.stdout.write(character)
-            #     sys.stdout.flush()
-            #     time.sleep(1)
+            if pet.evaluate_lod():
+                break
             time.sleep(10)
             pet.increase_age()
             pet.evaluate_properties()
-            if pet.evaluate_lod():
-                break
             self.display_game()
 
-    def get_input(self, pet):
+    def _get_input(self, pet):
         while True:
             if pet.evaluate_lod():
                 break
@@ -72,10 +68,10 @@ class Game:
         print('Starting new game...')
         name = input('Name your pet:\n').capitalize()
         self.my_pet = Pet(name)
-        tick_thread = threading.Thread(target=self.tick_time,
+        tick_thread = threading.Thread(target=self._tick_time,
                                        args=(self.my_pet,))
         tick_thread.start()
-        input_thread = threading.Thread(target=self.get_input,
+        input_thread = threading.Thread(target=self._get_input,
                                         args=(self.my_pet,))
         input_thread.start()
 
