@@ -75,6 +75,22 @@ class Game:
                                         args=(self.my_pet,))
         input_thread.start()
 
-    def quit_game():
+    def quit_game(self):
         """Quits the current game, closes all threads"""
         print('Quitting game. Progress is saved. See you next time!')
+
+    def save_game(self):
+        """Method to save the current running game,
+        should be called every tick"""
+        print(f'Saving game...')
+
+    def load_game(self):
+        """Method to initialize new game with existing data"""
+        print('Starting new game...')
+        self.my_pet = Pet(name)
+        tick_thread = threading.Thread(target=self._tick_time,
+                                       args=(self.my_pet,))
+        tick_thread.start()
+        input_thread = threading.Thread(target=self._get_input,
+                                        args=(self.my_pet,))
+        input_thread.start()
