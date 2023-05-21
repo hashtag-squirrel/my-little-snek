@@ -151,7 +151,7 @@ def get_input(pet):
             pet.pet()
             display_game(pet)
         elif choice == 'q':
-            print('Quitting game. Progress is saved. See you next time!')
+            quit_game()
         else:
             print('invalid input')
 
@@ -166,6 +166,11 @@ def start_new_game():
     input_thread = threading.Thread(target=get_input, args=(my_pet,))
     input_thread.start()
     return my_pet
+
+
+def quit_game():
+    """Quits the current game, closes all threads"""
+    print('Quitting game. Progress is saved. See you next time!')
 
 
 def tick_time(pet):
