@@ -36,9 +36,9 @@ class Pet:
     def __str__(self):
         """Returns the string interpretation of the object"""
         return f'''
-        {self.type}
-        {self.name}{self.age}
-        {self.hunger}{self.poop}{self.sadness}
+        Type: {self.type.capitalize()}
+        Name: {self.name}, Age: {self.age}
+        Hunger: {self.hunger} | Poop: {self.poop} | Sadness: {self.sadness}
         '''
 
     def feed(self):
@@ -110,7 +110,7 @@ def display_game(pet):
 
 def start_new_game():
     print('Starting new game...')
-    name = input('Name your pet:')
+    name = input('Name your pet:\n').capitalize()
     my_pet = Pet(name)
     return my_pet
 
