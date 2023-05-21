@@ -2,6 +2,7 @@ import time
 import threading
 import os
 import sys
+import random
 from colorama import Fore, Back, Style
 
 
@@ -74,6 +75,11 @@ class Pet:
         """Increases sadness"""
         print(f'{self.name} is getting sad.')
         self.sadness += 1
+
+    def increase_age(self):
+        """Increases age of the pet"""
+        print(f'{self.name} has aged.')
+        self.age += 1
 
     def die(self):
         """Checks properties and 'kills' the pet on certain conditions"""
@@ -158,10 +164,12 @@ def tick_time(pet):
     save_game()
     """
     while True:
-        for character in '...\n':
-            sys.stdout.write(character)
-            sys.stdout.flush()
-            time.sleep(1)
+        # for character in '...\n':
+        #     sys.stdout.write(character)
+        #     sys.stdout.flush()
+        #     time.sleep(1)
+        time.sleep(3)
+        pet.increase_age()
         pet.evaluate_properties()
         if pet.evaluate_lod():
             break
