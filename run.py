@@ -88,6 +88,15 @@ class Pet:
     def evaluate_properties(self):
         """Runs every tick and may increase hunger, poop or sadness"""
         print(f'Evaluating {self.name}...')
+        chance = random.randint(1, 5)
+        if chance <= 2:
+            self.get_hungry()
+        chance = random.randint(1, 5)
+        if chance <= 2:
+            self.defecate()
+        chance = random.randint(1, 5)
+        if chance <= 2:
+            self.get_sad()
 
     def evaluate_lod(self):
         """Checks whether the pet is alive or dead and returns a boolean"""
@@ -96,7 +105,7 @@ class Pet:
             or (self.poop == 5 and self.sadness == 5)
                 or (self.hunger == 5 and self.sadness == 5)):
             self.dead = True
-            print('Bob is dead')
+            print(f'{self.name} has died of neglect.')
             return self.dead
 
 
@@ -128,17 +137,23 @@ def display_game(pet):
 
 
 def get_input(pet):
-    choice = input().lower()
-    if choice == 'f':
-        Pet.feed(pet)
-    elif choice == 'c':
-        Pet.clean(pet)
-    elif choice == 'p':
-        Pet.pet(pet)
-    elif choice == 'q':
-        print('Quitting game. Progress is saved. See you next time!')
-    else:
-        print('invalid input')
+    while True:
+        if pet.evaluate_lod():
+            break
+        choice = input().lower()
+        if choice == 'f':
+            pet.feed()
+            display_game(pet)
+        elif choice == 'c':
+            pet.clean()
+            display_game(pet)
+        elif choice == 'p':
+            pet.pet()
+            display_game(pet)
+        elif choice == 'q':
+            print('Quitting game. Progress is saved. See you next time!')
+        else:
+            print('invalid input')
 
 
 def start_new_game():
@@ -168,7 +183,7 @@ def tick_time(pet):
         #     sys.stdout.write(character)
         #     sys.stdout.flush()
         #     time.sleep(1)
-        time.sleep(3)
+        time.sleep(10)
         pet.increase_age()
         pet.evaluate_properties()
         if pet.evaluate_lod():
@@ -185,10 +200,5 @@ def main():
     else:
         game_choice = display_welcome_screen()
 
-
-# def get_input():
-#     name = input('Input your name\n')
-#     print(f'Your name: {name}')
-#     time.sleep(60)
 
 main()
