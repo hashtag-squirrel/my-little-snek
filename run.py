@@ -45,17 +45,20 @@ class Pet:
     def feed(self):
         """Reduces hunger"""
         print(f'Feeding {self.name}...')
-        self.hunger -= 1
+        if self.hunger > 0:
+            self.hunger -= 1
 
     def clean(self):
         """Reduces poop"""
         print('Cleaning poop...')
-        self.poop -= 1
+        if self.poop > 0:
+            self.poop -= 1
 
     def pet(self):
         """Reduces sadness"""
         print(f'Petting {self.name}...')
-        self.sadness -= 1
+        if self.sadness > 0:
+            self.sadness -= 1
 
     def get_hungry(self):
         """Increases hunger"""
