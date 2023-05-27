@@ -22,6 +22,14 @@ class Datahandler:
     PETS = SHEET.worksheet('alive')
     DECEASED = SHEET.worksheet('dead')
 
+    def check_if_id_exists(id):
+        if Datahandler.PETS.find(id):
+            print('Pet found.')
+            return True
+        else:
+            print(f'Cannot find pet with ID {id}.')
+            return False
+
     def get_pet_from_file(id):
         """Accesses the pets file, checks whether the id exists
         and returns row matching the id
@@ -38,9 +46,7 @@ class Datahandler:
                 return row[i]
 
     def save_new_pet_to_file(pet):
-        """Accesses the pets file, checks whether the id exists
-        and rewrites the row with current values
-        """
+        """Accesses the pets file and appends row"""
         print('Trying to save new pet in database...')
         pet_data = [pet.id,
                     pet.name,

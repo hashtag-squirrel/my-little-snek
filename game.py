@@ -82,6 +82,19 @@ class Game:
                                         args=(self.my_pet,))
         input_thread.start()
 
+    def validate_id(self, id):
+        try:
+            [int(digit) for digit in id]
+            if len(id) != 6:
+                raise ValueError(
+                    f'Exactly 6 digits required, you provided {len(id)}'
+                    )
+        except ValueError as e:
+            print(f'Invalid data: {e}, please try again.\n')
+            return False
+        else:
+            return True
+
     def quit_game(self):
         """Quits the current game, closes all threads"""
         print('Quitting game. Progress is saved. See you next time!')
@@ -95,7 +108,11 @@ class Game:
     def load_game(self):
         """Method to initialize new game with existing data"""
         print('Loading game...')
-        id = input("Please enter your pet's ID:\n")
+        while True:
+            id = input("Please enter your pet's ID (6 digits):\n")
+            if self.validate_id(id):
+                if Datahandler.check_if_id_exists(id):
+                    break
         pet = Datahandler.get_pet_from_file(id)
         name = pet[1]
         type = pet[2]
