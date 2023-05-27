@@ -1,4 +1,6 @@
 import random
+import time
+from datahandler import Datahandler
 
 
 class Pet:
@@ -72,18 +74,21 @@ class Pet:
 
     def get_hungry(self):
         """Increases hunger"""
-        print(f'{self.name} gets hungry.')
-        self.hunger += 1
+        if self.hunger < 5:
+            print(f'{self.name} gets hungry.')
+            self.hunger += 1
 
     def defecate(self):
         """Increases poop"""
-        print(f'{self.name} has pooped.')
-        self.poop += 1
+        if self.poop < 5:
+            print(f'{self.name} has pooped.')
+            self.poop += 1
 
     def get_sad(self):
         """Increases sadness"""
-        print(f'{self.name} is getting sad.')
-        self.sadness += 1
+        if self.sadness < 5:
+            print(f'{self.name} is getting sad.')
+            self.sadness += 1
 
     def increase_age(self):
         """Increases age of the pet"""
@@ -92,7 +97,10 @@ class Pet:
 
     def die(self):
         """Checks properties and 'kills' the pet on certain conditions"""
-        print(f'{self.name} has died of something. Game over.')
+        print(f'{self.name} has died of neglect. Game over.')
+        deathtime = str(time.ctime())
+        Datahandler.save_deceased_pet_to_file(self, deathtime)
+        Datahandler.delete_pet_from_alive_file(self.id)
 
     def evaluate_properties(self):
         """Runs every tick and may increase hunger, poop or sadness"""
@@ -114,5 +122,5 @@ class Pet:
             or (self.poop == 5 and self.sadness == 5)
                 or (self.hunger == 5 and self.sadness == 5)):
             self.dead = True
-            print(f'{self.name} has died of neglect.')
+            self.die()
             return self.dead

@@ -83,6 +83,7 @@ class Game:
         input_thread.start()
 
     def validate_id(self, id):
+        """Validates input id for correct format of 6 digit number string"""
         try:
             [int(digit) for digit in id]
             if len(id) != 6:
@@ -94,6 +95,10 @@ class Game:
             return False
         else:
             return True
+
+    def validate_name(self, name):
+        """Validates name input to use a name between 2 and 12 characters"""
+        print('Validating name...')
 
     def quit_game(self):
         """Quits the current game, closes all threads"""

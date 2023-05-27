@@ -95,3 +95,38 @@ class Datahandler:
                 print(id)
                 break
         return id
+
+    def delete_pet_from_alive_file(id):
+        """Deletes a row from the alive sheet in case the pet dies"""
+        print('Deleting friend...')
+        first_column = Datahandler.PETS.col_values(1)
+        # Iterates over id column
+        for i in range(len(first_column)):
+            # checks if value of cell in id column matches id given
+            # and returns the whole row
+            if first_column[i] == id:
+                Datahandler.PETS.delete_row(i+1)
+
+    def save_deceased_pet_to_file(pet, deathtime):
+        """Copies a row from the alive sheet to the dead sheet"""
+        print('Burying friend...')
+        first_column = Datahandler.PETS.col_values(1)
+        row = Datahandler.PETS.get_all_values()
+        # Iterates over id column
+        for i in range(len(first_column)):
+            # checks if value of cell in id column matches id given
+            # and returns the whole row
+            if first_column[i] == pet.id:
+                print(f'Saving pet {row[i][1]} to Cemetery!')
+                data = [
+                    pet.id,
+                    pet.name,
+                    pet.type,
+                    pet.age,
+                    pet.hunger,
+                    pet.poop,
+                    pet.sadness,
+                    pet.birthdate,
+                    deathtime]
+                Datahandler.DECEASED.append_row(data)
+                break
