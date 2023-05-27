@@ -35,5 +35,40 @@ class Datahandler:
                 print(f'Found pet {row[i][1]}!')
                 return row[i]
 
+    def save_new_pet_to_file(pet):
+        """Accesses the pets file, checks whether the id exists
+        and rewrites the row with current values"""
+        print('Trying to save new pet in database...')
+        pet_data = [pet.id,
+                    pet.name,
+                    pet.type,
+                    pet.age,
+                    pet.hunger,
+                    pet.poop,
+                    pet.sadness,
+                    '']
+        Datahandler.PETS.append_row(pet_data)
 
-Datahandler.get_pet_from_file('123')
+    def save_pet_to_file(pet):
+        """Accesses the pets file, checks whether the id exists
+        and rewrites the row with current values"""
+        print('Trying to save pet in database...')
+        first_column = Datahandler.PETS.col_values(1)
+        row = Datahandler.PETS.get_all_values()
+        # Iterates over id column
+        for i in range(len(first_column)):
+            # checks if value of cell in id column matches id given
+            # and returns the whole row
+            if first_column[i] == pet.id:
+                print(f'Saving pet {row[i][1]}!')
+                data = [
+                    pet.id,
+                    pet.name,
+                    pet.type,
+                    pet.age,
+                    pet.hunger,
+                    pet.poop,
+                    pet.sadness,
+                    '']
+                Datahandler.PETS.update(f'A{i+1}:H{i+1}', [data])
+                break

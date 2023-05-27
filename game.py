@@ -1,4 +1,5 @@
 from pet import Pet
+from datahandler import Datahandler
 import threading
 import time
 import os
@@ -33,8 +34,8 @@ class Game:
         evaluate_properties()
         evaluate_lod()
 
-        Calls game methods:
-        save_game()
+        Calls Datahandler methods:
+        save_pet_to_file()
         """
         while True:
             if pet.evaluate_lod():
@@ -43,6 +44,8 @@ class Game:
             pet.increase_age()
             pet.evaluate_properties()
             self.display_game()
+            if pet.age % 10 == 0:
+                Datahandler.save_pet_to_file(pet)
 
     def _get_input(self, pet):
         while True:
@@ -67,7 +70,9 @@ class Game:
         """Starts a new game"""
         print('Starting new game...')
         name = input('Name your pet:\n').capitalize()
-        self.my_pet = Pet(name)
+        id = '345'
+        self.my_pet = Pet(name, id)
+        Datahandler.save_new_pet_to_file(self.my_pet)
         tick_thread = threading.Thread(target=self._tick_time,
                                        args=(self.my_pet,))
         tick_thread.start()
