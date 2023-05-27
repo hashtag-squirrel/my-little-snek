@@ -8,7 +8,8 @@ from colorama import Fore, Back, Style
 
 class Game:
     """Class that controls every functionality around the game,
-    instantiates the running game object"""
+    instantiates the running game object
+    """
     def __init__(self):
         pass
 
@@ -70,7 +71,7 @@ class Game:
         """Starts a new game"""
         print('Starting new game...')
         name = input('Name your pet:\n').capitalize()
-        id = '345'
+        id = Datahandler.generate_id()
         self.my_pet = Pet(name, id)
         Datahandler.save_new_pet_to_file(self.my_pet)
         tick_thread = threading.Thread(target=self._tick_time,
@@ -86,7 +87,8 @@ class Game:
 
     def save_game(self):
         """Method to save the current running game,
-        should be called every tick"""
+        should be called every tick
+        """
         print(f'Saving game...')
 
     def load_game(self):

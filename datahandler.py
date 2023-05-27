@@ -1,4 +1,5 @@
 import gspread
+import random
 from google.oauth2.service_account import Credentials
 
 
@@ -23,7 +24,8 @@ class Datahandler:
 
     def get_pet_from_file(id):
         """Accesses the pets file, checks whether the id exists
-        and returns row matching the id"""
+        and returns row matching the id
+        """
         print('Looking for pet in database...')
         first_column = Datahandler.PETS.col_values(1)
         row = Datahandler.PETS.get_all_values()
@@ -37,7 +39,8 @@ class Datahandler:
 
     def save_new_pet_to_file(pet):
         """Accesses the pets file, checks whether the id exists
-        and rewrites the row with current values"""
+        and rewrites the row with current values
+        """
         print('Trying to save new pet in database...')
         pet_data = [pet.id,
                     pet.name,
@@ -51,7 +54,8 @@ class Datahandler:
 
     def save_pet_to_file(pet):
         """Accesses the pets file, checks whether the id exists
-        and rewrites the row with current values"""
+        and rewrites the row with current values
+        """
         print('Trying to save pet in database...')
         first_column = Datahandler.PETS.col_values(1)
         row = Datahandler.PETS.get_all_values()
@@ -72,3 +76,19 @@ class Datahandler:
                     '']
                 Datahandler.PETS.update(f'A{i+1}:H{i+1}', [data])
                 break
+
+    def generate_id():
+        """Generates a randomized id, checks if the id exists already
+        and continues generating ids until a unique one is generated
+        """
+        while True:
+            id = ''
+            for i in range(0, 6):
+                id += str(random.randint(0, 9))
+            if not Datahandler.PETS.find(id):
+                print(id)
+                break
+        return id
+
+
+Datahandler.generate_id()

@@ -23,7 +23,7 @@ class Pet:
     """
     def __init__(
             self,
-            name,
+            name: str,
             id,
             type='snake',
             age=0,
@@ -44,8 +44,9 @@ class Pet:
     def __str__(self):
         """Returns the string interpretation of the object"""
         return f'''
+        ID: {self.id}
         Type: {self.type.capitalize()}
-        Name: {self.name}, Age: {self.age}
+        Name: {self.name.capitalize()}, Age: {self.age}
         Hunger: {self.hunger} | Poop: {self.poop} | Sadness: {self.sadness}
         '''
 
