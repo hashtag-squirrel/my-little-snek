@@ -23,8 +23,9 @@ class Pet:
     """
     def __init__(
             self,
-            name: str,
             id,
+            name: str,
+            birthdate,
             type='snake',
             age=0,
             hunger=0,
@@ -35,6 +36,7 @@ class Pet:
         self.type = type
         self.name = name
         self.id = id
+        self.birthdate = birthdate
         self.age = age
         self.hunger = hunger
         self.poop = poop

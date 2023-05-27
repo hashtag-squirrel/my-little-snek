@@ -49,7 +49,7 @@ class Datahandler:
                     pet.hunger,
                     pet.poop,
                     pet.sadness,
-                    '']
+                    pet.birthdate]
         Datahandler.PETS.append_row(pet_data)
 
     def save_pet_to_file(pet):
@@ -73,7 +73,7 @@ class Datahandler:
                     pet.hunger,
                     pet.poop,
                     pet.sadness,
-                    '']
+                    pet.birthdate]
                 Datahandler.PETS.update(f'A{i+1}:H{i+1}', [data])
                 break
 
@@ -89,6 +89,3 @@ class Datahandler:
                 print(id)
                 break
         return id
-
-
-Datahandler.generate_id()
