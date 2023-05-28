@@ -19,6 +19,10 @@ def main():
         my_game = Game()
         my_game.start_new_game()
         my_game.display_game()
+    elif game_choice == 'c':
+        my_game = Game()
+        my_game.load_game()
+        my_game.display_game()
     else:
         game_choice = display_welcome_screen()
 

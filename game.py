@@ -1,4 +1,5 @@
 from pet import Pet
+from datahandler import Datahandler
 import threading
 import time
 import os
@@ -7,7 +8,8 @@ from colorama import Fore, Back, Style
 
 class Game:
     """Class that controls every functionality around the game,
-    instantiates the running game object"""
+    instantiates the running game object
+    """
     def __init__(self):
         pass
 
@@ -33,8 +35,8 @@ class Game:
         evaluate_properties()
         evaluate_lod()
 
-        Calls game methods:
-        save_game()
+        Calls Datahandler methods:
+        save_pet_to_file()
         """
         while True:
             if pet.evaluate_lod():
@@ -43,6 +45,8 @@ class Game:
             pet.increase_age()
             pet.evaluate_properties()
             self.display_game()
+            if pet.age % 10 == 0:
+                Datahandler.save_pet_to_file(pet)
 
     def _get_input(self, pet):
         while True:
@@ -67,7 +71,10 @@ class Game:
         """Starts a new game"""
         print('Starting new game...')
         name = input('Name your pet:\n').capitalize()
-        self.my_pet = Pet(name)
+        id = Datahandler.generate_id()
+        birthdate = str(time.ctime())
+        self.my_pet = Pet(id, name, birthdate)
+        Datahandler.save_new_pet_to_file(self.my_pet)
         tick_thread = threading.Thread(target=self._tick_time,
                                        args=(self.my_pet,))
         tick_thread.start()
@@ -75,22 +82,63 @@ class Game:
                                         args=(self.my_pet,))
         input_thread.start()
 
+    def validate_id(self, id):
+        """Validates input id for correct format of 6 digit number string"""
+        try:
+            [int(digit) for digit in id]
+            if len(id) != 6:
+                raise ValueError(
+                    f'Exactly 6 digits required, you provided {len(id)}'
+                    )
+        except ValueError as e:
+            print(f'Invalid data: {e}, please try again.\n')
+            return False
+        else:
+            return True
+
+    def validate_name(self, name):
+        """Validates name input to use a name between 2 and 12 characters"""
+        print('Validating name...')
+
     def quit_game(self):
         """Quits the current game, closes all threads"""
         print('Quitting game. Progress is saved. See you next time!')
 
     def save_game(self):
         """Method to save the current running game,
-        should be called every tick"""
+        should be called every 10 ticks
+        """
         print(f'Saving game...')
 
     def load_game(self):
         """Method to initialize new game with existing data"""
-        print('Starting new game...')
-        # self.my_pet = Pet(name)
-        # tick_thread = threading.Thread(target=self._tick_time,
-        #                                args=(self.my_pet,))
-        # tick_thread.start()
-        # input_thread = threading.Thread(target=self._get_input,
-        #                                 args=(self.my_pet,))
-        # input_thread.start()
+        print('Loading game...')
+        while True:
+            id = input("Please enter your pet's ID (6 digits):\n")
+            if self.validate_id(id):
+                if Datahandler.check_if_id_exists(id):
+                    break
+        pet = Datahandler.get_pet_from_file(id)
+        name = pet[1]
+        type = pet[2]
+        age = int(pet[3])
+        hunger = int(pet[4])
+        poop = int(pet[5])
+        sadness = int(pet[6])
+        birthdate = pet[7]
+        self.my_pet = Pet(
+            id,
+            name,
+            birthdate,
+            type,
+            age,
+            hunger,
+            poop,
+            sadness)
+
+        tick_thread = threading.Thread(target=self._tick_time,
+                                       args=(self.my_pet,))
+        tick_thread.start()
+        input_thread = threading.Thread(target=self._get_input,
+                                        args=(self.my_pet,))
+        input_thread.start()
