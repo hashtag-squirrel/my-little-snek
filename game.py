@@ -21,7 +21,7 @@ class Game:
     def display_game(self):
         """Displays the game"""
         time.sleep(1)
-        # self.clear()
+        self.clear()
         print(self.my_pet)
         print(f'''Do you want to
 {Fore.LIGHTGREEN_EX}F{Fore.RESET}eed,
@@ -82,7 +82,10 @@ class Game:
     def start_new_game(self):
         """Starts a new game"""
         print('Starting new game...')
-        name = input('Name your pet:\n').capitalize()
+        while True:
+            name = input('Name your pet:\n').capitalize()
+            if self.validate_name(name):
+                break
         id = Datahandler.generate_id()
         birthdate = str(time.ctime())
         self.my_pet = Pet(id, name, birthdate)
@@ -114,6 +117,21 @@ class Game:
     def validate_name(self, name):
         """Validates name input to use a name between 2 and 12 characters"""
         print('Validating name...')
+        try:
+            if not name.isalpha():
+                raise TypeError
+            if len(name) < 2 or len(name) > 10:
+                raise ValueError
+        except TypeError:
+            print(f'''Invalid input: {name}.
+Please try again with only alphabetic characters.''')
+            return False
+        except ValueError:
+            print(f'''Invalid input, you entered {len(name)} characters.
+The name should consist of 2-10 characters.''')
+            return False
+        else:
+            return True
 
     def quit_game(self):
         """Quits the current game, closes all threads"""
