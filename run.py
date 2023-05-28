@@ -67,7 +67,7 @@ def display_tutorial():
 {Fore.RESET}
 ''')
     input(f'''
-    Press {Fore.LIGHTGREEN_EX}Enter{Fore.RESET} to get back to the main menu.
+    Press {Fore.LIGHTGREEN_EX}ENTER{Fore.RESET} to get back to the main menu.
     ''')
     main()
 

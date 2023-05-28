@@ -1,5 +1,6 @@
 import random
 import time
+import emoji
 from art import snake
 from datahandler import Datahandler
 
@@ -49,31 +50,44 @@ class Pet:
 
     def __str__(self):
         """Returns the string interpretation of the object"""
-        return f'''
-        ID: {self.id}
-        Type: {self.type.capitalize()}
-        Name: {self.name.capitalize()}, Age: {self.age}
-        {snake[self.snake_stage]}
-        Hunger: {self.hunger} | Poop: {self.poop} | Sadness: {self.sadness}
-        '''
+        return (f'''
+        Name: {self.name.capitalize()} | Age: {self.age} | ID: {self.id}
+{snake[self.snake_stage]}
+                Hunger: {emoji.emojize(":mouse_face:") * self.hunger}''' +
+                f'{" " * (6 - self.hunger)}' +
+                f'| Poop: {emoji.emojize(":pile_of_poo:") * self.poop} ' +
+                f'{" " * (6 - self.poop)}' +
+                f'| Sadness: {emoji.emojize(":red_heart:") * self.sadness}')
 
     def feed(self):
         """Reduces hunger"""
-        print(f'Feeding {self.name}...')
+        print(f'''
+    Feeding {self.name}...''')
         if self.hunger > 0:
             self.hunger -= 1
+            print(f'''
+    {self.name} hisses happily!''')
+        else:
+            print(f'''
+    {self.name} is not hungry right now.''')
 
     def clean(self):
         """Reduces poop"""
-        print('Cleaning poop...')
+        print('''
+    Cleaning poop...''')
         if self.poop > 0:
             self.poop -= 1
+            print(f'''
+    {self.name} slithers around on the cleaner floor.''')
 
     def pet(self):
         """Reduces sadness"""
-        print(f'Petting {self.name}...')
+        print(f'''
+    Petting {self.name}...''')
         if self.sadness > 0:
             self.sadness -= 1
+            print(f'''
+    {self.name} smiles and hisses happily at you.''')
 
     def get_hungry(self):
         """Increases hunger"""
@@ -106,7 +120,8 @@ class Pet:
 
     def die(self):
         """Checks properties and 'kills' the pet on certain conditions"""
-        print(f'{self.name} has died of neglect. Game over.')
+        print(f'''
+    {self.name} has died of neglect. Game over.''')
         deathtime = str(time.ctime())
         Datahandler.save_deceased_pet_to_file(self, deathtime)
         Datahandler.delete_pet_from_alive_file(self.id)

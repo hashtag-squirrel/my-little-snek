@@ -23,11 +23,12 @@ class Game:
         time.sleep(1)
         Game.clear()
         print(self.my_pet)
-        print(f'''Do you want to
-{Fore.LIGHTGREEN_EX}F{Fore.RESET}eed,
-{Fore.LIGHTGREEN_EX}C{Fore.RESET}lean,
-{Fore.LIGHTGREEN_EX}P{Fore.RESET}et or
-{Fore.LIGHTGREEN_EX}Q{Fore.RESET}uit the game?\n''')
+        print(f'''
+    Do you want to
+    {Fore.LIGHTGREEN_EX}F{Fore.RESET}eed,
+    {Fore.LIGHTGREEN_EX}C{Fore.RESET}lean,
+    {Fore.LIGHTGREEN_EX}P{Fore.RESET}et or
+    {Fore.LIGHTGREEN_EX}Q{Fore.RESET}uit the game?\n''')
 
     def save_game(self, game, pet):
         """Method to save the current running game,
@@ -126,12 +127,14 @@ class Game:
             if len(name) < 2 or len(name) > 10:
                 raise ValueError
         except TypeError:
-            print(f'''Invalid input: {name}.
-Please try again with only alphabetic characters.''')
+            print(f'''
+    Invalid input: {name}.
+    Please try again with only alphabetic characters.''')
             return False
         except ValueError:
-            print(f'''Invalid input, you entered {len(name)} characters.
-The name should consist of 2-10 characters.''')
+            print(f'''
+    Invalid input, you entered {len(name)} characters.
+    The name should consist of 2-10 characters.''')
             return False
         else:
             return True
