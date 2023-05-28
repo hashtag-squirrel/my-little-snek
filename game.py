@@ -32,6 +32,7 @@ class Game:
     def save_game(self, game, pet):
         """Method to save the current running game,
         should be called every 10 ticks
+        Calls Datahandler methods
         """
         print(f'Saving game...')
         if game == 'new':
@@ -46,8 +47,8 @@ class Game:
         evaluate_properties()
         evaluate_lod()
 
-        Calls Datahandler methods:
-        save_pet_to_file()
+        Calls game methods:
+        save_game()
         """
         while self._is_ticking is True:
             if pet.evaluate_lod():
@@ -60,6 +61,7 @@ class Game:
                 self.save_game('save', pet)
 
     def _get_input(self, pet):
+        """Function that waits for input as long as the game runs"""
         while self._is_ticking is True:
             if pet.evaluate_lod():
                 break
@@ -115,8 +117,9 @@ class Game:
             return True
 
     def validate_name(self, name):
-        """Validates name input to use a name between 2 and 12 characters"""
-        print('Validating name...')
+        """Validates name input to use a name between 2 and 10 characters
+        which are all alphabetic
+        """
         try:
             if not name.isalpha():
                 raise TypeError

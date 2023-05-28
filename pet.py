@@ -75,24 +75,20 @@ class Pet:
     def get_hungry(self):
         """Increases hunger"""
         if self.hunger < 5:
-            print(f'{self.name} gets hungry.')
             self.hunger += 1
 
     def defecate(self):
         """Increases poop"""
         if self.poop < 5:
-            print(f'{self.name} has pooped.')
             self.poop += 1
 
     def get_sad(self):
         """Increases sadness"""
         if self.sadness < 5:
-            print(f'{self.name} is getting sad.')
             self.sadness += 1
 
     def increase_age(self):
         """Increases age of the pet"""
-        print(f'{self.name} has aged.')
         self.age += 1
 
     def die(self):
@@ -104,7 +100,6 @@ class Pet:
 
     def evaluate_properties(self):
         """Runs every tick and may increase hunger, poop or sadness"""
-        print(f'Evaluating {self.name}...')
         chance = random.randint(1, 5)
         if chance <= 2:
             self.get_hungry()
@@ -117,7 +112,6 @@ class Pet:
 
     def evaluate_lod(self):
         """Checks whether the pet is alive or dead and returns a boolean"""
-        print(f'Checking if {self.name} is alive or dead...')
         if ((self.hunger == 5 and self.poop == 5)
             or (self.poop == 5 and self.sadness == 5)
                 or (self.hunger == 5 and self.sadness == 5)):
