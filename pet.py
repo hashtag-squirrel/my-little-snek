@@ -51,13 +51,15 @@ class Pet:
     def __str__(self):
         """Returns the string interpretation of the object"""
         return (f'''
-        Name: {self.name.capitalize()} | Age: {self.age} | ID: {self.id}
+            Name: {self.name.capitalize()}''' + ' ' * (10 - len(self.name)) +
+                '   |   ' +
+                f'Age: {self.age}   |   ID: {self.id}' + f'''
 {snake[self.snake_stage]}
-                Hunger: {emoji.emojize(":mouse_face:") * self.hunger}''' +
+                Hunger: {emoji.emojize(":mouse_face: ") * self.hunger}''' +
                 f'{" " * (6 - self.hunger)}' +
-                f'| Poop: {emoji.emojize(":pile_of_poo:") * self.poop} ' +
+                f'| Poop: {emoji.emojize(":pile_of_poo: ") * self.poop} ' +
                 f'{" " * (6 - self.poop)}' +
-                f'| Sadness: {emoji.emojize(":red_heart:") * self.sadness}')
+                f'| Sadness: {emoji.emojize(":red_heart: ") * self.sadness}')
 
     def feed(self):
         """Reduces hunger"""
