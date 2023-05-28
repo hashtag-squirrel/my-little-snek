@@ -1,5 +1,6 @@
 import random
 import time
+from art import snake
 from datahandler import Datahandler
 
 
@@ -44,6 +45,7 @@ class Pet:
         self.poop = poop
         self.sadness = sadness
         self.dead = dead
+        self.snake_stage = 0
 
     def __str__(self):
         """Returns the string interpretation of the object"""
@@ -51,6 +53,7 @@ class Pet:
         ID: {self.id}
         Type: {self.type.capitalize()}
         Name: {self.name.capitalize()}, Age: {self.age}
+        {snake[self.snake_stage]}
         Hunger: {self.hunger} | Poop: {self.poop} | Sadness: {self.sadness}
         '''
 
@@ -90,6 +93,16 @@ class Pet:
     def increase_age(self):
         """Increases age of the pet"""
         self.age += 1
+        if self.age > 233:
+            self.snake_stage = 4
+        elif self.age > 89:
+            self.snake_stage = 3
+        elif self.age > 34:
+            self.snake_stage = 2
+        elif self.age > 8:
+            self.snake_stage = 1
+        elif self.age > 0:
+            self.snake_stage = 0
 
     def die(self):
         """Checks properties and 'kills' the pet on certain conditions"""

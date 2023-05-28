@@ -14,14 +14,14 @@ class Game:
         self._is_ticking = False
         pass
 
-    def clear(self):
+    def clear():
         """Clears the terminal window"""
         os.system('clear')
 
     def display_game(self):
         """Displays the game"""
         time.sleep(1)
-        self.clear()
+        Game.clear()
         print(self.my_pet)
         print(f'''Do you want to
 {Fore.LIGHTGREEN_EX}F{Fore.RESET}eed,
