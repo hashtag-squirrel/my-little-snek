@@ -11,6 +11,7 @@ class Game:
     instantiates the running game object
     """
     def __init__(self):
+        self._is_ticking = False
         pass
 
     def clear(self):
@@ -20,13 +21,23 @@ class Game:
     def display_game(self):
         """Displays the game"""
         time.sleep(1)
-        self.clear()
+        # self.clear()
         print(self.my_pet)
         print(f'''Do you want to
 {Fore.LIGHTGREEN_EX}F{Fore.RESET}eed,
 {Fore.LIGHTGREEN_EX}C{Fore.RESET}lean,
 {Fore.LIGHTGREEN_EX}P{Fore.RESET}et or
 {Fore.LIGHTGREEN_EX}Q{Fore.RESET}uit the game?\n''')
+
+    def save_game(self, game, pet):
+        """Method to save the current running game,
+        should be called every 10 ticks
+        """
+        print(f'Saving game...')
+        if game == 'new':
+            Datahandler.save_new_pet_to_file(pet)
+        elif game == 'save':
+            Datahandler.save_pet_to_file(pet)
 
     def _tick_time(self, pet):
         """Function that 'ticks' at certain intervals,
@@ -38,18 +49,18 @@ class Game:
         Calls Datahandler methods:
         save_pet_to_file()
         """
-        while True:
+        while self._is_ticking is True:
             if pet.evaluate_lod():
                 break
             time.sleep(10)
             pet.increase_age()
             pet.evaluate_properties()
             self.display_game()
-            if pet.age % 10 == 0:
-                Datahandler.save_pet_to_file(pet)
+            if pet.age % 5 == 0:
+                self.save_game('save', pet)
 
     def _get_input(self, pet):
-        while True:
+        while self._is_ticking is True:
             if pet.evaluate_lod():
                 break
             choice = input().lower()
@@ -64,6 +75,7 @@ class Game:
                 self.display_game()
             elif choice == 'q':
                 self.quit_game()
+                break
             else:
                 print('invalid input')
 
@@ -74,13 +86,16 @@ class Game:
         id = Datahandler.generate_id()
         birthdate = str(time.ctime())
         self.my_pet = Pet(id, name, birthdate)
-        Datahandler.save_new_pet_to_file(self.my_pet)
-        tick_thread = threading.Thread(target=self._tick_time,
-                                       args=(self.my_pet,))
-        tick_thread.start()
-        input_thread = threading.Thread(target=self._get_input,
-                                        args=(self.my_pet,))
-        input_thread.start()
+        self.save_game('new', self.my_pet)
+        self._is_ticking = True
+        self.tick_thread = threading.Thread(
+            target=self._tick_time,
+            args=(self.my_pet,))
+        self.tick_thread.start()
+        self.input_thread = threading.Thread(
+            target=self._get_input,
+            args=(self.my_pet,))
+        self.input_thread.start()
 
     def validate_id(self, id):
         """Validates input id for correct format of 6 digit number string"""
@@ -103,12 +118,8 @@ class Game:
     def quit_game(self):
         """Quits the current game, closes all threads"""
         print('Quitting game. Progress is saved. See you next time!')
-
-    def save_game(self):
-        """Method to save the current running game,
-        should be called every 10 ticks
-        """
-        print(f'Saving game...')
+        self.save_game('save', self.my_pet)
+        self._is_ticking = False
 
     def load_game(self):
         """Method to initialize new game with existing data"""
@@ -118,6 +129,7 @@ class Game:
             if self.validate_id(id):
                 if Datahandler.check_if_id_exists(id):
                     break
+        # Getting and preparing pet data from file
         pet = Datahandler.get_pet_from_file(id)
         name = pet[1]
         type = pet[2]
@@ -126,6 +138,7 @@ class Game:
         poop = int(pet[5])
         sadness = int(pet[6])
         birthdate = pet[7]
+        # Instantiating Pet object
         self.my_pet = Pet(
             id,
             name,
@@ -135,10 +148,13 @@ class Game:
             hunger,
             poop,
             sadness)
-
-        tick_thread = threading.Thread(target=self._tick_time,
-                                       args=(self.my_pet,))
-        tick_thread.start()
-        input_thread = threading.Thread(target=self._get_input,
-                                        args=(self.my_pet,))
-        input_thread.start()
+        # Starting game threads
+        self._is_ticking = True
+        self.tick_thread = threading.Thread(
+            target=self._tick_time,
+            args=(self.my_pet,))
+        self.tick_thread.start()
+        self.input_thread = threading.Thread(
+            target=self._get_input,
+            args=(self.my_pet,))
+        self.input_thread.start()
