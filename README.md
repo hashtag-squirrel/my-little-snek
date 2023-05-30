@@ -1,5 +1,25 @@
 # my little Snek
 
+
+## Table of Contents
+my little Snek
+Table of Contents
+Features for MVP
+Additional Features
+Potential Future Features
+Data Storage
+Design
+Flowchart
+Classes
+Libraries
+Testing
+Bugs
+Validation
+Manual Testing
+Technologies
+Deployment
+Credits
+
 ## Features/Gameplay
 
 - start game (new/load existing)
