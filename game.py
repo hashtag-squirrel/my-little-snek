@@ -114,12 +114,15 @@ class Game:
             choice = input().lower()
             if choice == 'f':
                 pet.feed()
+                time.sleep(2)
                 self.display_game()
             elif choice == 'c':
                 pet.clean()
+                time.sleep(2)
                 self.display_game()
             elif choice == 'p':
                 pet.pet()
+                time.sleep(2)
                 self.display_game()
             elif choice == 'q':
                 self.quit_game()
