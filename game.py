@@ -1,3 +1,4 @@
+import art
 from pet import Pet
 from datahandler import Datahandler
 import threading
@@ -17,6 +18,20 @@ class Game:
     def clear():
         """Clears the terminal window"""
         os.system('clear')
+
+    def display_welcome_screen():
+        """Displays the welcome screen to the player"""
+        Game.clear()
+        print(art.welcome)
+        choice = input(f'''
+        Do you want to start a
+        {Fore.LIGHTGREEN_EX}N{Fore.RESET}EW GAME or
+        {Fore.LIGHTGREEN_EX}C{Fore.RESET}ONTINUE an existing game
+
+        or do you want to
+        {Fore.LIGHTGREEN_EX}R{Fore.RESET}EAD the tutorial?\n\n
+        ''').lower()
+        return choice
 
     def display_game(self):
         """Displays the game"""
