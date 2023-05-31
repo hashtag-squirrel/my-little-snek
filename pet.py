@@ -109,14 +109,22 @@ class Pet:
     def increase_age(self):
         """Increases age of the pet"""
         self.age += 1
-        if self.age > 233:
+        if self.age == 233:
             self.snake_stage = 4
-        elif self.age > 89:
+            print(f'''
+    {self.name} is shedding its skin and grew bigger!''')
+        elif self.age == 89:
             self.snake_stage = 3
-        elif self.age > 34:
+            print(f'''
+    {self.name} is shedding its skin and grew bigger!''')
+        elif self.age == 34:
             self.snake_stage = 2
-        elif self.age > 8:
+            print(f'''
+    {self.name} is shedding its skin and grew bigger!''')
+        elif self.age == 8:
             self.snake_stage = 1
+            print('''
+    Your egg is hatching!''')
         elif self.age > 0:
             self.snake_stage = 0
 

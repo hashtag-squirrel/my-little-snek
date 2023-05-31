@@ -1,4 +1,3 @@
-import time
 from game import Game
 from colorama import Fore, Back, Style
 
