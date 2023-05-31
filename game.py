@@ -141,9 +141,18 @@ class Game:
 
     def quit_game(self):
         """Quits the current game, closes all threads"""
-        print('Quitting game. Progress is saved. See you next time!')
-        self.save_game('save', self.my_pet)
+        print('''
+    Quitting game. Wait until saving is done...''')
         self._is_ticking = False
+        time.sleep(10)
+        self.save_game('save', self.my_pet)
+        print(f"""
+    Don't forget to write down your pet's ID if you want to come back!
+    The ID is {Fore.LIGHTGREEN_EX}{self.my_pet.id}{Fore.RESET}.
+
+    See you next time!
+    """)
+        del self
 
     def load_game(self):
         """Method to initialize new game with existing data"""
