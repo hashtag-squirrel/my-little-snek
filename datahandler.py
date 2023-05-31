@@ -53,6 +53,7 @@ class Datahandler:
                     pet.hunger,
                     pet.poop,
                     pet.sadness,
+                    pet.stage,
                     pet.birthdate]
         Datahandler.PETS.append_row(pet_data)
 
@@ -75,8 +76,9 @@ class Datahandler:
                     pet.hunger,
                     pet.poop,
                     pet.sadness,
+                    pet.stage,
                     pet.birthdate]
-                Datahandler.PETS.update(f'A{i+1}:H{i+1}', [data])
+                Datahandler.PETS.update(f'A{i+1}:I{i+1}', [data])
                 break
 
     def generate_id():
@@ -119,6 +121,7 @@ class Datahandler:
                     pet.hunger,
                     pet.poop,
                     pet.sadness,
+                    pet.stage,
                     pet.birthdate,
                     deathtime]
                 Datahandler.DECEASED.append_row(data)

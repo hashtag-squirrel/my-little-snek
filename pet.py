@@ -35,6 +35,7 @@ class Pet:
             hunger=0,
             poop=0,
             sadness=0,
+            stage=0,
             dead=False):
         """Initializes the Pet"""
         self.type = type
@@ -46,7 +47,7 @@ class Pet:
         self.poop = poop
         self.sadness = sadness
         self.dead = dead
-        self.snake_stage = 0
+        self.stage = stage
 
     def __str__(self):
         """Returns the string interpretation of the object"""
@@ -54,7 +55,7 @@ class Pet:
             Name: {self.name.capitalize()}''' + ' ' * (10 - len(self.name)) +
                 '   |   ' +
                 f'Age: {self.age}   |   ID: {self.id}' + f'''
-{snake[self.snake_stage]}
+{snake[self.stage]}
                 Hunger: {emoji.emojize(":mouse_face: ") * self.hunger}''' +
                 f'{" " * (6 - self.hunger)}' +
                 f'| Poop: {emoji.emojize(":pile_of_poo: ") * self.poop} ' +
@@ -110,23 +111,21 @@ class Pet:
         """Increases age of the pet"""
         self.age += 1
         if self.age == 233:
-            self.snake_stage = 4
+            self.stage = 4
             print(f'''
     {self.name} is shedding its skin and grew bigger!''')
         elif self.age == 89:
-            self.snake_stage = 3
+            self.stage = 3
             print(f'''
     {self.name} is shedding its skin and grew bigger!''')
         elif self.age == 34:
-            self.snake_stage = 2
+            self.stage = 2
             print(f'''
     {self.name} is shedding its skin and grew bigger!''')
         elif self.age == 8:
-            self.snake_stage = 1
+            self.stage = 1
             print('''
     Your egg is hatching!''')
-        elif self.age > 0:
-            self.snake_stage = 0
 
     def die(self):
         """Checks properties and 'kills' the pet on certain conditions"""

@@ -246,7 +246,8 @@ class Game:
         hunger = int(pet[4])
         poop = int(pet[5])
         sadness = int(pet[6])
-        birthdate = pet[7]
+        stage = int(pet[7])
+        birthdate = pet[8]
         # Instantiating Pet object
         self.my_pet = Pet(
             id,
@@ -256,7 +257,8 @@ class Game:
             age,
             hunger,
             poop,
-            sadness)
+            sadness,
+            stage)
         # Starting game threads
         self._is_ticking = True
         self.tick_thread = threading.Thread(
