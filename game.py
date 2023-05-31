@@ -24,14 +24,44 @@ class Game:
         Game.clear()
         print(art.welcome)
         choice = input(f'''
-        Do you want to start a
-        {Fore.LIGHTGREEN_EX}N{Fore.RESET}EW GAME or
-        {Fore.LIGHTGREEN_EX}C{Fore.RESET}ONTINUE an existing game
+    Do you want to start a
+    {Fore.LIGHTGREEN_EX}N{Fore.RESET}EW GAME or
+    {Fore.LIGHTGREEN_EX}C{Fore.RESET}ONTINUE an existing game
 
-        or do you want to
-        {Fore.LIGHTGREEN_EX}R{Fore.RESET}EAD the tutorial?\n\n
-        ''').lower()
-        return choice
+    or do you want to
+    {Fore.LIGHTGREEN_EX}R{Fore.RESET}EAD the tutorial?\n\n
+    ''').lower()
+        Game.validate_game_choice_input(choice)
+
+    def display_tutorial():
+        """Displays the tutorial screen for the game"""
+        Game.clear()
+        print(f'''{Fore.LIGHTGREEN_EX}
+    my little Snek
+
+
+    The game is loosely based on the Tamagotchi pets of the last century.
+
+    When you start a new game, you are asked for a name for your pet which
+    should consist of 2 to 10 alphabetic characters. You then receive a unique
+    ID for your pet, which you should write down if you want to continue
+    playing at a later time. You can see this ID at any time during the game.
+
+    Your pet ages over time. At certain intervals, there is a chance for your
+    pet to either get hungry, poop or get sad. You can then take care of your
+    pet by typing the starting letters of the functions to feed, clean or pet
+    your pet to keep your pet healthy and happy.
+
+    If you neglect your pet for too long and any 2 of the pet's needs go up to
+    5, your pet will die and will be moved to the cemetery with all other
+    deceased
+    pets.
+{Fore.RESET}
+''')
+        input(f'''
+    Press {Fore.LIGHTGREEN_EX}ENTER{Fore.RESET} to get back to the main menu.
+    ''')
+        Game.display_welcome_screen()
 
     def display_game(self):
         """Displays the game"""
@@ -154,11 +184,28 @@ class Game:
         else:
             return True
 
+    def validate_game_choice_input(game_choice):
+        if game_choice == 'n':
+            my_game = Game()
+            my_game.start_new_game()
+            my_game.display_game()
+        elif game_choice == 'c':
+            my_game = Game()
+            my_game.load_game()
+            my_game.display_game()
+        elif game_choice == 'r':
+            Game.display_tutorial()
+        else:
+            print('Invalid input.')
+            time.sleep(1)
+            game_choice = Game.display_welcome_screen()
+
     def quit_game(self):
         """Quits the current game, closes all threads"""
         print('''
     Quitting game. Wait until saving is done...''')
         self._is_ticking = False
+        # Wait 10 seconds for the last loop in the threads to run
         time.sleep(10)
         self.save_game('save', self.my_pet)
         print(f"""
@@ -168,12 +215,23 @@ class Game:
     See you next time!
     """)
         del self
+        # Wait 5 seconds so player can note ID
+        time.sleep(5)
+        Game.display_welcome_screen()
 
     def load_game(self):
         """Method to initialize new game with existing data"""
         print('Loading game...')
         while True:
-            id = input("Please enter your pet's ID (6 digits):\n")
+            print("""
+    Please enter your pet's ID (6 digits):\n""")
+            print(f'''
+    You can also go back to the main menu by entering {Fore.LIGHTGREEN_EX}Q
+    {Fore.RESET}''')
+            id = input("Please enter your pet's ID (6 digits):\n").lower()
+            if id == 'q':
+                Game.display_welcome_screen()
+                break
             if self.validate_id(id):
                 if Datahandler.check_if_id_exists(id):
                     break
