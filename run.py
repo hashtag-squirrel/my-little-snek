@@ -1,5 +1,4 @@
 from game import Game
-from colorama import Fore, Back, Style
 
 
 def main():

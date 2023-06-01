@@ -56,8 +56,8 @@ class Game:
     5, your pet will die and will be moved to the cemetery with all other
     deceased
     pets.
-{Fore.RESET}
-''')
+    {Fore.RESET}
+    ''')
         input(f'''
     Press {Fore.LIGHTGREEN_EX}ENTER{Fore.RESET} to get back to the main menu.
     ''')
@@ -73,7 +73,8 @@ class Game:
     {Fore.LIGHTGREEN_EX}F{Fore.RESET}eed,
     {Fore.LIGHTGREEN_EX}C{Fore.RESET}lean,
     {Fore.LIGHTGREEN_EX}P{Fore.RESET}et or
-    {Fore.LIGHTGREEN_EX}Q{Fore.RESET}uit the game?\n''')
+    {Fore.LIGHTGREEN_EX}Q{Fore.RESET}uit the game?\n
+    ''')
 
     def save_game(self, game, pet):
         """Method to save the current running game,
@@ -177,12 +178,14 @@ class Game:
         except TypeError:
             print(f'''
     Invalid input: {name}.
-    Please try again with only alphabetic characters.''')
+    Please try again with only alphabetic characters.
+    ''')
             return False
         except ValueError:
             print(f'''
     Invalid input, you entered {len(name)} characters.
-    The name should consist of 2-10 characters.''')
+    The name should consist of 2-10 characters.
+    ''')
             return False
         else:
             return True
@@ -206,7 +209,8 @@ class Game:
     def quit_game(self):
         """Quits the current game, closes all threads"""
         print('''
-    Quitting game. Wait until saving is done...''')
+    Quitting game. Wait until saving is done...
+    ''')
         self._is_ticking = False
         # Wait 10 seconds for the last loop in the threads to run
         time.sleep(10)
@@ -227,11 +231,13 @@ class Game:
         print('Loading game...')
         while True:
             print("""
-    Please enter your pet's ID (6 digits):\n""")
+    Please enter your pet's ID (6 digits):\n
+    """)
             print(f'''
     You can also go back to the main menu by entering {Fore.LIGHTGREEN_EX}Q
-    {Fore.RESET}''')
-            id = input("Please enter your pet's ID (6 digits):\n").lower()
+    {Fore.RESET}
+    ''')
+            id = input().lower()
             if id == 'q':
                 Game.display_welcome_screen()
                 break

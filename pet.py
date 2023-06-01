@@ -36,7 +36,8 @@ class Pet:
             poop=0,
             sadness=0,
             stage=0,
-            dead=False):
+            dead=False
+            ):
         """Initializes the Pet"""
         self.type = type
         self.name = name
@@ -60,37 +61,45 @@ class Pet:
                 f'{" " * (6 - self.hunger)}' +
                 f'| Poop: {emoji.emojize(":pile_of_poo: ") * self.poop} ' +
                 f'{" " * (6 - self.poop)}' +
-                f'| Sadness: {emoji.emojize(":red_heart: ") * self.sadness}')
+                f'| Sadness: {emoji.emojize(":red_heart: ") * self.sadness}'
+                )
 
     def feed(self):
         """Reduces hunger"""
         print(f'''
-    Feeding {self.name}...''')
+    Feeding {self.name}...
+    ''')
         if self.hunger > 0:
             self.hunger -= 1
             print(f'''
-    {self.name} hisses happily!''')
+    {self.name} hisses happily!
+    ''')
         else:
             print(f'''
-    {self.name} is not hungry right now.''')
+    {self.name} is not hungry right now.
+    ''')
 
     def clean(self):
         """Reduces poop"""
         print('''
-    Cleaning poop...''')
+    Cleaning poop...
+    ''')
         if self.poop > 0:
             self.poop -= 1
             print(f'''
-    {self.name} slithers around on the cleaner floor.''')
+    {self.name} slithers around on the cleaner floor.
+    ''')
 
     def pet(self):
         """Reduces sadness"""
         print(f'''
-    Petting {self.name}...''')
+    Petting {self.name}...
+    ''')
         if self.sadness > 0:
             self.sadness -= 1
             print(f'''
-    {self.name} smiles and hisses happily at you.''')
+    {self.name} smiles and hisses happily at you.
+    ''')
 
     def get_hungry(self):
         """Increases hunger"""
@@ -113,24 +122,29 @@ class Pet:
         if self.age == 233:
             self.stage = 4
             print(f'''
-    {self.name} is shedding its skin and grew bigger!''')
+    {self.name} is shedding its skin and grew bigger!
+    ''')
         elif self.age == 89:
             self.stage = 3
             print(f'''
-    {self.name} is shedding its skin and grew bigger!''')
+    {self.name} is shedding its skin and grew bigger!
+    ''')
         elif self.age == 34:
             self.stage = 2
             print(f'''
-    {self.name} is shedding its skin and grew bigger!''')
+    {self.name} is shedding its skin and grew bigger!
+    ''')
         elif self.age == 8:
             self.stage = 1
             print('''
-    Your egg is hatching!''')
+    Your egg is hatching!
+    ''')
 
     def die(self):
         """Checks properties and 'kills' the pet on certain conditions"""
         print(f'''
-    {self.name} has died of neglect. Game over.''')
+    {self.name} has died of neglect. Game over.
+    ''')
         deathtime = str(time.ctime())
         Datahandler.save_deceased_pet_to_file(self, deathtime)
         Datahandler.delete_pet_from_alive_file(self.id)
