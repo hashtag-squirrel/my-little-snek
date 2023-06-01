@@ -81,7 +81,9 @@ class Game:
         should be called every 10 ticks
         Calls Datahandler methods
         """
-        print(f'Saving game...')
+        print(f'''
+    Saving game...
+    ''')
         if game == 'new':
             Datahandler.save_new_pet_to_file(pet)
         elif game == 'save':
@@ -133,9 +135,10 @@ class Game:
 
     def start_new_game(self):
         """Starts a new game"""
-        print('Starting new game...')
         while True:
-            name = input('Name your pet:\n').capitalize()
+            name = input('''
+    Name your pet:\n
+    ''').capitalize()
             if self.validate_name(name):
                 break
         id = Datahandler.generate_id()
@@ -158,10 +161,14 @@ class Game:
             [int(digit) for digit in id]
             if len(id) != 6:
                 raise ValueError(
-                    f'Exactly 6 digits required, you provided {len(id)}'
+                    f'''
+    Exactly 6 digits required, you provided {len(id)}
+    '''
                     )
         except ValueError as e:
-            print(f'Invalid data: {e}, please try again.\n')
+            print(f'''
+    Invalid data: {e}, please try again.\n
+    ''')
             return False
         else:
             return True
@@ -228,7 +235,6 @@ class Game:
 
     def load_game(self):
         """Method to initialize new game with existing data"""
-        print('Loading game...')
         while True:
             print("""
     Please enter your pet's ID (6 digits):\n
