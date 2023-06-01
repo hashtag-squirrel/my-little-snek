@@ -46,14 +46,17 @@ class Datahandler:
 
     def save_new_pet_to_file(pet):
         """Accesses the pets file and appends row"""
-        pet_data = [pet.id,
-                    pet.name,
-                    pet.type,
-                    pet.age,
-                    pet.hunger,
-                    pet.poop,
-                    pet.sadness,
-                    pet.birthdate]
+        pet_data = [
+            pet.id,
+            pet.name,
+            pet.type,
+            pet.age,
+            pet.hunger,
+            pet.poop,
+            pet.sadness,
+            pet.stage,
+            pet.birthdate
+            ]
         Datahandler.PETS.append_row(pet_data)
 
     def save_pet_to_file(pet):
@@ -75,8 +78,10 @@ class Datahandler:
                     pet.hunger,
                     pet.poop,
                     pet.sadness,
-                    pet.birthdate]
-                Datahandler.PETS.update(f'A{i+1}:H{i+1}', [data])
+                    pet.stage,
+                    pet.birthdate
+                    ]
+                Datahandler.PETS.update(f'A{i+1}:I{i+1}', [data])
                 break
 
     def generate_id():
@@ -119,7 +124,9 @@ class Datahandler:
                     pet.hunger,
                     pet.poop,
                     pet.sadness,
+                    pet.stage,
                     pet.birthdate,
-                    deathtime]
+                    deathtime
+                    ]
                 Datahandler.DECEASED.append_row(data)
                 break
