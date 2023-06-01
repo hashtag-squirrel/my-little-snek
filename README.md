@@ -78,12 +78,33 @@ The input is validated to only accept a name made up of letters and a length bet
 
 The idea is that the user bonds a little more with the pet if they can give it a name of their choosing, as opposed to having a random name or unnamed pet. It also personalizes the game experience for the user. 
 
+![Start New Game](documentation/mls-new-game.png)
+
+After the player has input the pet's name, the program will [display the game](#display-game).
+
 ##### Load Existing Game
 
+If the player chooses the option to continue an existing game, they are asked to provide the 6 digit ID of the pet. 
+The input is validated to check if it conists of exactly 6 characters and to also check if all characters are numbers. See more about validation in the [section below](#validate-input). 
 
+The ID is generated automatically on a new game with 6 random digits to make sure people cannot just guess someone else's pet's ID. 
+
+![Load Existing Game](documentation/mls-continue-game.png)
+
+After the player has input the pet's ID, the program will give appropriate feedback about the input.
+
+![Load Existing Game Feedback](documentation/mls-load-game.png)
+
+It will then proceed to [display the game](#display-game).
+The player also has the option to go back to the main menu by entering "Q". 
+
+Offering a player the option to continue a game they had started earlier, requires to save the data somewhere. In the case of my little Snek, the data is saved in a Google Sheet and retrieved from there or updated when needed. I will talk more about this below in the section about [Data Storage](#data-storage).
 
 ##### Display Game
-- Display the Pet
+
+The main game display is split into two essential parts:
+
+1. Display the Pet and it's properties
     - Name
     - Age
     - ID
@@ -91,9 +112,18 @@ The idea is that the user bonds a little more with the pet if they can give it a
     - Hunger
     - Poop
     - Sadness
-- Display Input Options
+2. Display Input Options
     - Pet Functions
     - Quit Game
+
+This way, the player has all the information they need at their disposal at any point during a running game. 
+
+The pet display is using text art and emoji characters to make it more pleasing and easier to grasp the content. 
+
+The input options are highlighted in the same way as in the Welcome Screen, to ensure consistency and to make it easy to see which options are available.
+
+![Display Game](documentation/mls-display-game.png)
+
 ##### Run and progress over time
 ##### Accept non-blocking user input
 ##### Pet Functions
