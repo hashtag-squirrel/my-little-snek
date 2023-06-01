@@ -163,11 +163,11 @@ class Game:
                 raise ValueError(
                     f'''
     Exactly 6 digits required, you provided {len(id)}
-    '''
-                    )
+    ''')
         except ValueError as e:
             print(f'''
-    Invalid data: {e}, please try again.\n
+    Invalid data: {e}.
+    Please try again.\n
     ''')
             return False
         else:
