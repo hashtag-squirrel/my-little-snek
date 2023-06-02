@@ -284,6 +284,10 @@ For this project, I used Python 3.9.13.
 
 To display the project in a browser, I used the mock terminal provided by Code Institute, which is written in HTML, CSS and JavaScript. 
 
+For hosting the code and for version control, I used Git/GitHub.
+
+To deploy the live project, I used Heroku. 
+
 #### Libraries
 
 For the different functionalities I wanted to have in the game, I used different Python libraries. I have separated them into the Standard libraries and the Custom libraries:
@@ -414,11 +418,32 @@ These are just some of the things coming to mind, I am sure there is even more p
 
 ## Testing
 
+Testing was done during the whole development period for every feature that was added. 
+Additionally, the game was reviewed by numerous people including other students from CI and also family and friends. The feedback collected from these reviews was used to improve the User Experience and remove bugs. 
+
+After the  improvements and refactoring was done, I did another round of thorough testing of every functionality to ensure that everything works as it should. 
+
 ### Bugs
 
 #### Fixed Bugs
 
+The following bugs were identified and fixed during development and review phases:
+
+- On load, the game always displayed the first stage of the snake for the first tick
+  - Fix: The pet was instantiated with a default value for stage. Added stage to the file data and instantiation of the pet
+- If player incorrectly chose to continue a game but didn't know an id, they were stuck in the continue game id input stage
+  - Fix: Added the option to go back to main menu instead of inputting an id
+- Feedback from pet functions (feed, pet, clean) disappeared too quickly to read
+  - Fix: Added a 2 second delay using time.sleep()
+- On quitting a game, the game said it saved before the last loop ran, which gave a strange experience
+  - Fix: Added a 10 second delay after setting _is_ticking to False using time.sleep() to make sure any actions and feedback to the user happen after the threads are finished
+
 #### Known Bugs
+
+The following bugs are known but remain unfixed:
+
+- Not exactly a bug, but something that feels a little strange is that when pet functions are used, one receives the feedback, but the display updates 2 seconds later now to show the reduced property. I did not change this because I wanted to avoid doing too many display updates, but a change might improve the User Experience here. 
+- No other bugs are known at this point.
 
 ### Validation
 
@@ -441,7 +466,40 @@ run.py:
 
 ### Manual Testing
 
+| **User Story/Feature**                                   | **Testing Method**                                                                                                                                                                                                                                                      | **Expected Outcome**                                                                                                                                                                                                                                                                                                                                                                                                                 | **Test Result**                                                | **Comments**                                                                                                       |
+|----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| Display Welcome Screen<br>Validate Game Choice           | 1. Navigating to the website, if needed clicking on Run Program<br>2. Checking that the welcome screen is fully visible in the mock terminal<br>3. Checking that the welcome screen accepts input<br>4. Trying different inputs to see if input is validated correctly  | 1. run.py working<br>2. Seeing the Welcome Screen<br>3. Being able to enter input of any kind<br>4. Receiving "Invalid input" message if not using one of the highlighted letters and asking for the input again                                                                                                                                                                                                                     | 1. Pass<br>2. Pass<br>3. Pass<br>4. Pass                       |                                                                                                                    |
+| Start New Game<br>Validate Pet Name                      | 1. Typing "n"<br>2. Trying to input non-alphabetic characters<br>3. Trying to input 1 letter<br>4. Trying to input 11 letters<br>5. Trying to input a name between 2 and 10 letters                                                                                     | 1. Starting a game and being asked for a name input<br>2. Receiving "Invalid input type" message and asking for the input again<br>3. Receiving "Invalid input length" message and asking for the input again<br>4. Receiving "Invalid input length" message and asking for the input again<br>5. Proceeding to save the pet to file and display the game                                                                            | 1. Pass<br>2. Pass<br>3. Pass<br>4. Pass<br>5. Pass            |                                                                                                                    |
+| Load Existing Game<br>Validate ID                        | 1. Typing "c" to continue a game<br>2. Trying to input letters<br>3. Trying to input less than 6 numbers<br>4. Trying to input more than 6 numbers<br>5. Trying to input a non-existing ID<br>6. Trying to input an existing ID                                         | 1. Starting a game and being asked for an id input<br>2. Receiving "Invalid input type" message and asking for the input again<br>3. Receiving "Invalid input length" message and asking for the input again<br>4. Receiving "Invalid input length" message and asking for the input again<br>5. Receiving "ID doesn't exist" message and asking for the input again<br>6. Proceeding to load the pet from file and display the game | 1. Pass<br>2. Pass<br>3. Pass<br>4. Pass<br>5. Pass<br>6. Pass |                                                                                                                    |
+| Display Game                                             | 1. Checking that the whole game is fully visible in the mock terminal<br>2. Checking that the pet is displayed properly<br>3. Checking that the input options are displayed properly<br>4. Checking that feedback to player is visible                                  | 1. No elements are outside of terminal range<br>2. Seeing pet display, including correct pet stage and pet properties<br>3. Seeing all input options at the bottom with highlighted characters<br>4. Making sure feedback is on screen at appropriate times and stays long enough for player to read                                                                                                                                 | 1. Pass<br>2. Pass<br>3. Pass<br>4. Pass                       |                                                                                                                    |
+| Run and Progress Over Time                               | 1. Observing the game for a while                                                                                                                                                                                                                                       | 1. Checking that the age changes regularly, and checking that the pet properties change randomly over time                                                                                                                                                                                                                                                                                                                           | 1. Pass                                                        |                                                                                                                    |
+| Accept Non-Blocking User Input<br>Validate game input    | 1. Typing "f" to feed the pet<br>2. Typing "c" to clean the pet<br>3. Typing "p" to pet the pet<br>4. Typing "q" to quit the game<br>5. Typing any other character or full words                                                                                        | 1. Feedback in terminal that pet is fed and decreasing number of mouse emoji<br>2. Feedback in terminal that poop is cleaned and decreasing number of poop emoji<br>3. Feedback in terminal that pet is happy and decreasing number of heart emoji<br>4. Feedback about the game being quit, saved and return to welcome screen<br>5. Receiving "Invalid input" message                                                              | 1. Pass<br>2. Pass<br>3. Pass<br>4. Pass<br>5. Pass            | <br><br><br>4. This only happens after the current loop is done, so it takes up to 10 seconds for the game to quit |
+| Pet Functions                                            | See section "Accept Non-Blocking User Input" for pet interaction function testing<br>See section "Run and Progress Over Time" for pet property change function testing<br>1. Waiting for the pet to meet "death" criteria                                               | <br><br>1. Feedback in terminal that the pet has died, feedback about the pet being moved to the cemetery, going back to the welcome screen                                                                                                                                                                                                                                                                                          | <br><br>1. Pass                                                |                                                                                                                    |
+| Autosave in Regular Intervals                            | 1. Observing the game for a while                                                                                                                                                                                                                                       | 1. Checking that the "Saving game" message shows in the terminal in regular intervals                                                                                                                                                                                                                                                                                                                                                | 1. Pass                                                        |                                                                                                                    |
+| Validate Input                                           | See sections "Display Welcome Screen", "Start New Game", "Load Existing Game" and "Accept Non-Blocking User Input" for validation testing                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                      |                                                                |                                                                                                                    |
+| Display Tutorial Screen                                  | 1. Typing "r" on Welcome Screen <br>2. Typing "Enter" on Tutorial <br>3. Typing other input on Tutorial Screen                                                                                                                                                          | 1. Checking that the tutorial is displayed correctly<br>2. Seeing the Welcome Screen again<br>3. Also takes one back to the Welcome Screen, since any input followed by enter is accepted                                                                                                                                                                                                                                            | 1. Pass<br>2. Pass<br>3. Pass                                  |                                                                                                                    |
+| Going back to the Welcome Screen after quitting the game | 1. Typing "q" during the game<br>2. Observing the quitting sequence<br>3. Checking Welcome Screen functionality again                                                                                                                                                   | 1. Starting the quitting sequence<br>2. Feedback about the game being quit, saved and return to welcome screen<br>3. All input being accepted and validated again                                                                                                                                                                                                                                                                    | 1. Pass<br>2. Pass<br>3. Pass                                  |                                                                                                                    |
+
 ## Deployment
+
+The project was deployed on Heroku. The following steps were needed to deploy the project:
+
+1. Login to Heroku and go to the dashboard
+2. Click on "New"
+3. Select "Create new app"
+4. Enter the desired app name
+5. Choose the desired region 
+6. Click "Create app"
+7. In the newly created app, go to Settings
+   1. Reveal Config Vars
+      1. Set CREDS
+      2. Set PORT to 8000
+   2. In the Settings, select "Add buildpack"
+      1. Select python
+      2. Select nodejs
+8.  Go to "Deploy"
+9.  Under Deployment method, choose "GitHub" and connect to the GitHub account
+10. Enable automatic deployment from main branch
 
 
 
