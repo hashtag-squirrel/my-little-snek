@@ -6,7 +6,7 @@ from google.oauth2.service_account import Credentials
 class Datahandler:
     """Class to handle all data transactions to and from Google Sheets"""
 
-    # Setting up Google Sheet
+    # Setting up Google Sheet, referenced from Love Sandwiches project
     SCOPE = [
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive.file",
@@ -24,10 +24,14 @@ class Datahandler:
 
     def check_if_id_exists(id):
         if Datahandler.PETS.find(id):
-            print('Pet found.')
+            print('''
+    Pet found.
+    ''')
             return True
         else:
-            print(f'Cannot find pet with ID {id}.')
+            print(f'''
+    Cannot find pet with ID {id}.
+    ''')
             return False
 
     def get_pet_from_file(id):
@@ -41,7 +45,9 @@ class Datahandler:
             # checks if value of cell in id column matches id given
             # and returns the whole row
             if first_column[i] == id:
-                print(f'Found pet {row[i][1]}!')
+                print(f'''
+    Found pet {row[i][1]}!
+    ''')
                 return row[i]
 
     def save_new_pet_to_file(pet):
@@ -115,7 +121,9 @@ class Datahandler:
             # checks if value of cell in id column matches id given
             # and returns the whole row
             if first_column[i] == pet.id:
-                print(f'Saving pet {row[i][1]} to Cemetery!')
+                print(f'''
+    Saving pet {row[i][1]} to Cemetery!
+    ''')
                 data = [
                     pet.id,
                     pet.name,
