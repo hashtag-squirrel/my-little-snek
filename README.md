@@ -270,6 +270,16 @@ There are numerous ways to extend the game or add to it:
 
 ## Design
 
+This section will cover mostly technical design decisions. 
+
+One non-technical aspect I want to mention is that I updated the provided files for the mock terminal website in a couple of ways:
+
+1. I added a background image that is thematically connected, showing some snake skin
+2. I changed the "Run Program" button color to match the terminal output color 
+3. I repositioned and resized the terminal window. 
+
+I did these things to make the website a little more visually pleasing for the user, but none of this has any effect on the game itself. 
+
 ### Flowchart
 
 Before starting to write any code, I mapped out the main functions for the MVP in a flowchart of the game:
