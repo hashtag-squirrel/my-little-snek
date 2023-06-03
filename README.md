@@ -495,22 +495,23 @@ run.py:
 
 The project was deployed on Heroku. The following steps were needed to deploy the project:
 
-1. Log in to Heroku and go to the dashboard
-2. Click on "New"
-3. Select "Create new app"
-4. Enter the desired app name
-5. Choose the desired region 
-6. Click "Create app"
-7. In the newly created app, go to Settings
+1. Preparing the project for deployment on Heroku by ensuring that dependencies are saved in a requirements.txt file
+2. Log in to Heroku and go to the dashboard
+3. Click on "New"
+4. Select "Create new app"
+5. Enter the desired app name
+6. Choose the desired region 
+7. Click "Create app"
+8. In the newly created app, go to Settings
    1. Reveal Config Vars
       1. Set CREDS
       2. Set PORT to 8000 - About this setting, I want to add that I only set this because the guide from CI instructed me to do so. I have tried deploying without this setting and it worked without any issues. My mentor advised me to include the setting anyways since they had heard of issues that other students faced recently connected to this setting. 
    2. In Settings, select "Add buildpack"
       1. Select python
       2. Select nodejs
-8.  Go to "Deploy"
-9.  Under Deployment method, choose "GitHub" and connect to the GitHub account
-10. Enable automatic deployment from the main branch
+9.  Go to "Deploy"
+10.  Under Deployment method, choose "GitHub" and connect to the GitHub account
+11. Enable automatic deployment from the main branch
 
 
 ## Credits
