@@ -258,6 +258,7 @@ There are numerous ways to extend the game or add to it:
 - Extend the pet class to have more than one kind of pet
   - At the moment, the game only has the Snake pet, but it could be extended to have different kinds
   - This could be something that is unlocked by getting the snake to maximum growth
+  - Different pets could have different difficulties, e.g. other pets could have higher chances to poop or have lower maximum thresholds and die more easily
 - Adding achievements
   - The player could be awarded achievements for different scenarios they reach, e.g.
     - Certain age reached/growth stage reached
