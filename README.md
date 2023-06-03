@@ -513,6 +513,8 @@ The project was deployed on Heroku. The following steps were needed to deploy th
 10.  Under Deployment method, choose "GitHub" and connect to the GitHub account
 11. Enable automatic deployment from the main branch
 
+The deployed game can be found here: [my little Snek](https://my-little-snek.herokuapp.com/)
+
 
 ## Credits
 
