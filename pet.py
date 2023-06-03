@@ -159,13 +159,13 @@ class Pet:
     def evaluate_properties(self):
         """Runs every tick and may increase hunger, poop or sadness"""
         chance = random.randint(1, 5)
-        if chance <= 2:
+        if chance <= 1:
             self.get_hungry()
         chance = random.randint(1, 5)
-        if chance <= 2:
+        if chance <= 1:
             self.defecate()
         chance = random.randint(1, 5)
-        if chance <= 2:
+        if chance <= 1:
             self.get_sad()
 
     def evaluate_lod(self):
